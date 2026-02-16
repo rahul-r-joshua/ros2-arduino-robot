@@ -80,7 +80,7 @@ cd ~/arduino_ws
 
 ### 2️⃣ Clone the repository 📥
 ```bash
-git clone https://github.com/rahul-r-joshua/ros2-arduino-robot.git
+git clone https://github.com/rahul-r-joshua/ros2-arduino-robot.git .
 ```
 
 ### 3️⃣ Build the workspace 🏗️
