@@ -1,6 +1,6 @@
 # 🤖 ROS2 + Arduino Integration
 
-This repository contains the **Arduino firmware and ROS2 nodes** to control a robot via ROS2 topics, including:
+This repository contains **Arduino firmware and ROS2 nodes in both C++ and Python** to control a robot via ROS2 topics. It demonstrates how ROS2 can act as the "brain" while Arduino handles actuators and sensors.
 
 - LED control
 - Sensor data acquisition
@@ -80,7 +80,7 @@ cd ~/arduino_ws
 
 ### 2️⃣ Clone the repository 📥
 ```bash
-git clone https://github.com/rahul-r-joshua/ros2-arduino-robot.git .
+git clone https://github.com/rahul-r-joshua/ROS2-Arduino-Robot.git .
 ```
 
 ### 3️⃣ Build the workspace 🏗️
@@ -105,6 +105,47 @@ chmod +x *.py
 ```
 
 ----- 
+
+# 📡 ROS2 Simple Publisher and Subscriber
+
+**Publisher:** Sends messages to a ROS2 topic  
+**Subscriber:** Listens to the same topic  
+**Purpose:** Demonstrates basic ROS2 topic communication
+
+This example verifies that your ROS2 workspace and nodes are working correctly before integrating with Arduino.
+
+## 🖥️ Terminal 1 
+
+```bash
+source install/setup.bash
+
+# Run the ROS2 C++ node controlling Arduino
+ros2 run arduino_firmware simple_publisher
+
+# Run the ROS2 Python node controlling Arduino
+ros2 run arduino_firmware simple_publisher.py
+```
+
+## 🖥️ Terminal 2
+
+```bash
+source install/setup.bash
+
+# Run the ROS2 C++ node controlling Arduino
+ros2 run arduino_firmware simple_subscriber
+
+# Run the ROS2 Python node controlling Arduino
+ros2 run arduino_firmware simple_subscriber.py
+```
+### 🔄 Expected Output
+
+* The publisher prints messages it sends.
+
+* The subscriber prints messages it receives.
+
+* Messages should appear continuously in the subscriber terminal.
+
+--- 
 
 
 # 💡 ROS2 + Arduino LED Blink
@@ -142,13 +183,18 @@ If you use an external LED:
 ---
 
 
-## 🖥️ Terminal 1
+## 🖥️ Terminal 1 
 
 ```bash
 source install/setup.bash
 
 # Run the Arduino firmware (adjust port if needed)
+
+# Run the ROS2 C++ node controlling Arduino
 ros2 run arduino_firmware simple_serial_transmitter --ros-args -p port:=/dev/ttyACM1
+
+# Run the ROS2 Python node controlling Arduino
+ros2 run arduino_firmware simple_serial_transmitter.py --ros-args -p port:=/dev/ttyACM1
 ```
 
 ## 🖥️ Terminal 2
@@ -214,8 +260,14 @@ Example (for a simple analog sensor):
 source install/setup.bash
 
 # Run the Arduino firmware (adjust port if needed)
+
+# Run the ROS2 C++ node controlling Arduino
 ros2 run arduino_firmware simple_serial_receiver --ros-args -p port:=/dev/ttyACM1
+
+# Run the ROS2 Python node controlling Arduino
+ros2 run arduino_firmware simple_serial_receiver.py --ros-args -p port:=/dev/ttyACM1
 ```
+
 
 ## 🖥️ Terminal 2
 
@@ -261,7 +313,7 @@ Example wiring for a single servo:
 
 - Connect servo **VCC** (usually red wire) to **5V**  
 - Connect servo **GND** (usually black/brown wire) to **GND**  
-- Connect servo **Signal** (usually yellow/white wire) to **Digital Pin 9**  
+- Connect servo **Signal** (usually yellow/white wire) to **Digital Pin 8**  
 
 > ⚠️ **Warning:** Make sure the servo voltage matches the Arduino specifications. Do not exceed 5V for typical hobby servos. 
 
@@ -276,8 +328,14 @@ Example wiring for a single servo:
 source install/setup.bash
 
 # Run the Arduino firmware (adjust port if needed)
+
+# Run the ROS2 Python node controlling Arduino
 ros2 run arduino_firmware simple_serial_transmitter --ros-args -p port:=/dev/ttyACM1
+
+# Run the ROS2 C++ node controlling Arduino
+ros2 run arduino_firmware simple_serial_transmitter.py --ros-args -p port:=/dev/ttyACM1
 ```
+
 
 ## 🖥️ Terminal 2
 

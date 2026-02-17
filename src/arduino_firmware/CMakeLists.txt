@@ -15,9 +15,15 @@ pkg_check_modules(SERIAL libserial)
 
 ament_python_install_package(${PROJECT_NAME})
 
+add_executable(simple_publisher src/simple_publisher.cpp)
+ament_target_dependencies(simple_publisher rclcpp std_msgs)
+
+add_executable(simple_subscriber src/simple_subscriber.cpp)
+ament_target_dependencies(simple_subscriber rclcpp std_msgs)
 
 add_executable(simple_serial_receiver src/simple_serial_receiver.cpp)
 ament_target_dependencies(simple_serial_receiver rclcpp std_msgs)
+
 target_include_directories(simple_serial_receiver PUBLIC
  "${SERIAL_INCLUDE_DIRS}")
 target_link_libraries(simple_serial_receiver
@@ -31,6 +37,8 @@ target_link_libraries(simple_serial_transmitter
  "${SERIAL_LDFLAGS}")
 
 install(TARGETS
+  simple_publisher
+  simple_subscriber
   simple_serial_receiver
   simple_serial_transmitter
   ARCHIVE DESTINATION lib
@@ -42,6 +50,8 @@ install(TARGETS
 install(PROGRAMS
   ${PROJECT_NAME}/simple_serial_transmitter.py
   ${PROJECT_NAME}/simple_serial_receiver.py
+  ${PROJECT_NAME}/simple_publisher.py
+  ${PROJECT_NAME}/simple_subscriber.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
